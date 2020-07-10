@@ -70,4 +70,14 @@ internal class TupleTest {
         exception.message shouldStartWith "Cannot add two points"
     }
 
+    @Test
+    fun `Subtracting two tuples`() {
+        Tuple.point(3.0, 2.0, 1.0).subtract(Tuple.point(5.0, 6.0, 7.0)) shouldBe Tuple.vector(-2.0, -4.0, -6.0)
+        Tuple.point(3.0, 2.0, 1.0).subtract(Tuple.vector(5.0, 6.0, 7.0)) shouldBe Tuple.point(-2.0, -4.0, -6.0)
+        Tuple.vector(3.0, 2.0, 1.0).subtract(Tuple.vector(5.0, 6.0, 7.0)) shouldBe Tuple.vector(-2.0, -4.0, -6.0)
+
+        val exception = shouldThrow<RuntimeException> { Tuple.vector(3.0, -2.0, 5.0).subtract(Tuple.point(-2.0, 3.0, 1.0)) }
+        exception.message shouldStartWith "Cannot subtract a point from a vector"
+    }
+
 }

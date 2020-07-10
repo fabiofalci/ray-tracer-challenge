@@ -14,6 +14,11 @@ class Tuple(
 
     override fun equals(other: Any?): Boolean = (other is Tuple) && x == other.x && y == other.y && z == other.z && w == other.w
 
+    override fun toString(): String {
+        val type = if (isPoint()) "Point" else "Vector"
+        return "$type $x $y $z"
+    }
+
     fun isPoint(): Boolean {
         return w == 1
     }
@@ -25,5 +30,10 @@ class Tuple(
     fun plus(tuple: Tuple): Tuple {
         if (isPoint() && tuple.isPoint()) throw RuntimeException("Cannot add two points")
         return Tuple(x + tuple.x, y + tuple.y, z + tuple.z, w + tuple.w)
+    }
+
+    fun subtract(tuple: Tuple): Tuple {
+        if (isVector() && tuple.isPoint()) throw RuntimeException("Cannot subtract a point from a vector")
+        return Tuple(x - tuple.x, y - tuple.y, z - tuple.z, w - tuple.w)
     }
 }
