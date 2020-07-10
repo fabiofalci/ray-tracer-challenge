@@ -1,5 +1,8 @@
 package raytracer
 
+import kotlin.math.pow
+import kotlin.math.sqrt
+
 class Tuple(
         val x: Double,
         val y: Double,
@@ -47,5 +50,9 @@ class Tuple(
 
     operator fun div(i: Int): Any {
         return Tuple(x / i, y / i, z / i, w / i)
+    }
+
+    fun magnitude(): Double {
+        return sqrt(x.pow(2.0) + y.pow(2.0) + z.pow(2.0) + w.toDouble().pow(2.0))
     }
 }

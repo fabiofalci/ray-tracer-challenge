@@ -96,4 +96,13 @@ internal class TupleTest {
         Tuple(1.0, -2.0, 3.0, -4) / 2 shouldBe Tuple(0.5, -1.0, 1.5, -2)
     }
 
+    @Test
+    fun `Computing the magnitude of a vector`() {
+        Tuple.vector(1.0, 0.0, 0.0).magnitude() shouldBe 1.0
+        Tuple.vector(0.0, 1.0, 0.0).magnitude() shouldBe 1.0
+        Tuple.vector(0.0, 0.0, 1.0).magnitude() shouldBe 1.0
+        Tuple.vector(1.0, 2.0, 3.0).magnitude() shouldBe 3.7416573867739413
+        Tuple.vector(-1.0, -2.0, -3.0).magnitude() shouldBe 3.7416573867739413
+    }
+
 }
