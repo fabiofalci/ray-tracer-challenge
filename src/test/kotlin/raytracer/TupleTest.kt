@@ -80,4 +80,10 @@ internal class TupleTest {
         exception.message shouldStartWith "Cannot subtract a point from a vector"
     }
 
+    @Test
+    fun `Negating a tuple`() {
+        -Tuple.point(3.0, -2.0, 1.0) shouldBe Tuple.point(-3.0, 2.0, -1.0)
+        -Tuple.vector(3.0, -2.0, 1.0) shouldBe Tuple.vector(-3.0, 2.0, -1.0)
+    }
+
 }

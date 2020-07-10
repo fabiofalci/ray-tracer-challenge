@@ -36,4 +36,8 @@ class Tuple(
         if (isVector() && tuple.isPoint()) throw RuntimeException("Cannot subtract a point from a vector")
         return Tuple(x - tuple.x, y - tuple.y, z - tuple.z, w - tuple.w)
     }
+
+    operator fun unaryMinus(): Tuple {
+        return Tuple(-x, -y, -z, w)
+    }
 }
