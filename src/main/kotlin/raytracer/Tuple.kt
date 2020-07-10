@@ -21,4 +21,9 @@ class Tuple(
     fun isVector(): Boolean {
         return w == 0
     }
+
+    fun plus(tuple: Tuple): Tuple {
+        if (isPoint() && tuple.isPoint()) throw RuntimeException("Cannot add two points")
+        return Tuple(x + tuple.x, y + tuple.y, z + tuple.z, w + tuple.w)
+    }
 }
