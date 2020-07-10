@@ -82,8 +82,18 @@ internal class TupleTest {
 
     @Test
     fun `Negating a tuple`() {
-        -Tuple.point(3.0, -2.0, 1.0) shouldBe Tuple.point(-3.0, 2.0, -1.0)
-        -Tuple.vector(3.0, -2.0, 1.0) shouldBe Tuple.vector(-3.0, 2.0, -1.0)
+        -Tuple(3.0, -2.0, 1.0, -7) shouldBe Tuple(-3.0, 2.0, -1.0, 7)
+    }
+
+    @Test
+    fun `Multiplying a tuple`() {
+        Tuple(1.0, -2.0, 3.0, -4) * 3.5 shouldBe Tuple(3.5, -7.0, 10.5, -14)
+        Tuple(1.0, -2.0, 3.0, -4) * 0.5 shouldBe Tuple(0.5, -1.0, 1.5, -2)
+    }
+
+    @Test
+    fun `Dividing a tuple`() {
+        Tuple(1.0, -2.0, 3.0, -4) / 2 shouldBe Tuple(0.5, -1.0, 1.5, -2)
     }
 
 }

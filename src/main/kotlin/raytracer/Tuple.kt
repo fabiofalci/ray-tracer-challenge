@@ -15,8 +15,8 @@ class Tuple(
     override fun equals(other: Any?): Boolean = (other is Tuple) && x == other.x && y == other.y && z == other.z && w == other.w
 
     override fun toString(): String {
-        val type = if (isPoint()) "Point" else "Vector"
-        return "$type $x $y $z"
+        val type = if (isPoint()) "Point" else if (isVector()) "Vector" else "Tuple"
+        return "$type $x, $y, $z, $w"
     }
 
     fun isPoint(): Boolean {
@@ -38,6 +38,14 @@ class Tuple(
     }
 
     operator fun unaryMinus(): Tuple {
-        return Tuple(-x, -y, -z, w)
+        return Tuple(-x, -y, -z, -w)
+    }
+
+    operator fun times(d: Double): Tuple {
+        return Tuple(x * d, y * d, z * d, (w * d).toInt())
+    }
+
+    operator fun div(i: Int): Any {
+        return Tuple(x / i, y / i, z / i, w / i)
     }
 }
