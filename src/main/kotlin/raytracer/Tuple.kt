@@ -27,12 +27,12 @@ class Tuple(
         return w == 0
     }
 
-    fun plus(tuple: Tuple): Tuple {
+    operator fun plus(tuple: Tuple): Tuple {
         if (isPoint() && tuple.isPoint()) throw RuntimeException("Cannot add two points")
         return Tuple(x + tuple.x, y + tuple.y, z + tuple.z, w + tuple.w)
     }
 
-    fun subtract(tuple: Tuple): Tuple {
+    operator fun minus(tuple: Tuple): Tuple {
         if (isVector() && tuple.isPoint()) throw RuntimeException("Cannot subtract a point from a vector")
         return Tuple(x - tuple.x, y - tuple.y, z - tuple.z, w - tuple.w)
     }
