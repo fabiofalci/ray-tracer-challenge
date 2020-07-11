@@ -116,4 +116,15 @@ internal class TupleTest {
         Tuple.vector(1.0, 2.0, 3.0).normalize().magnitude() shouldBe 1.0
     }
 
+    @Test
+    fun `The dot product of two tuples`() {
+        Tuple.vector(1.0, 2.0, 3.0).dot(Tuple.vector(2.0, 3.0, 4.0)) shouldBe 20.0
+    }
+
+    @Test
+    fun `The cross product of two vectors`() {
+        Tuple.vector(1.0, 2.0, 3.0).cross(Tuple.vector(2.0, 3.0, 4.0)) shouldBe Tuple.vector(-1.0, 2.0, -1.0)
+        Tuple.vector(2.0, 3.0, 4.0).cross(Tuple.vector(1.0, 2.0, 3.0)) shouldBe Tuple.vector(1.0, -2.0, 1.0)
+    }
+
 }

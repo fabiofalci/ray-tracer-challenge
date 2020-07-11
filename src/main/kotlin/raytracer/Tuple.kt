@@ -60,4 +60,16 @@ class Tuple(
         val magnitude = magnitude()
         return Tuple(x / magnitude, y / magnitude, z / magnitude, (w / magnitude).toInt())
     }
+
+    fun dot(tuple: Tuple): Double {
+        return x * tuple.x + y * tuple.y + z * tuple.z + w + tuple.w
+    }
+
+    fun cross(tuple: Tuple): Tuple {
+        return vector(
+                y * tuple.z - z * tuple.y,
+                z * tuple.x - x * tuple.z,
+                x * tuple.y - y * tuple.x
+        )
+    }
 }
