@@ -55,4 +55,9 @@ class Tuple(
     fun magnitude(): Double {
         return sqrt(x.pow(2.0) + y.pow(2.0) + z.pow(2.0) + w.toDouble().pow(2.0))
     }
+
+    fun normalize(): Tuple {
+        val magnitude = magnitude()
+        return Tuple(x / magnitude, y / magnitude, z / magnitude, (w / magnitude).toInt())
+    }
 }

@@ -101,8 +101,19 @@ internal class TupleTest {
         Tuple.vector(1.0, 0.0, 0.0).magnitude() shouldBe 1.0
         Tuple.vector(0.0, 1.0, 0.0).magnitude() shouldBe 1.0
         Tuple.vector(0.0, 0.0, 1.0).magnitude() shouldBe 1.0
-        Tuple.vector(1.0, 2.0, 3.0).magnitude() shouldBe 3.7416573867739413
-        Tuple.vector(-1.0, -2.0, -3.0).magnitude() shouldBe 3.7416573867739413
+        Tuple.vector(1.0, 2.0, 3.0).magnitude() shouldBe 3.7416573867739413 // √14
+        Tuple.vector(-1.0, -2.0, -3.0).magnitude() shouldBe 3.7416573867739413 // √14
+    }
+
+    @Test
+    fun `Normalizing a vector`() {
+        Tuple.vector(4.0, 0.0, 0.0).normalize() shouldBe Tuple.vector(1.0, 0.0, 0.0)
+        Tuple.vector(1.0, 2.0, 3.0).normalize() shouldBe Tuple.vector(0.2672612419124244, 0.5345224838248488, 0.8017837257372732) // 1/√14, 2/√14, 3/√14
+    }
+
+    @Test
+    fun `The magnitude of a normalized vector`() {
+        Tuple.vector(1.0, 2.0, 3.0).normalize().magnitude() shouldBe 1.0
     }
 
 }
