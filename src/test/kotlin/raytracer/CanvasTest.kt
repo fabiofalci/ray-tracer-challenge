@@ -14,7 +14,7 @@ internal class CanvasTest {
 
         for (x in 0 until 10) {
             for (y in 0 until 20) {
-                canvas.getPixel(x, y) shouldBe Colors.WHITE
+                canvas.getPixel(x, y) shouldBe Colors.BLACK
             }
         }
     }

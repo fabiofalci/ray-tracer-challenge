@@ -6,7 +6,7 @@ class Canvas(private val width: Int, private val height: Int) {
 
     private val matrix: Array<Array<Tuple>> = Array(width) {
         Array(height) {
-            Colors.WHITE
+            Colors.BLACK
         }
     }
 
@@ -58,6 +58,8 @@ class Canvas(private val width: Int, private val height: Int) {
     }
 
     private fun scale(number: Double): Int {
+        if (number == 0.0)
+            return 0
         val scaled = (255 * number).roundToInt()
         return if (scaled > 255) 255 else if (scaled < 0) 0 else scaled
     }
