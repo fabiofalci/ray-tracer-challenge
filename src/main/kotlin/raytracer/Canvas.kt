@@ -16,7 +16,11 @@ class Canvas(private val width: Int, private val height: Int) {
     }
 
     fun writePixel(x: Int, y: Int, color: Tuple) {
-        matrix[x][y] = color
+        try {
+            matrix[x][y] = color
+        } catch (e: ArrayIndexOutOfBoundsException) {
+            // ignoring out of bounds pixels
+        }
     }
 
     fun toPPM(): String {
