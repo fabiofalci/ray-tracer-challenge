@@ -13,7 +13,7 @@ class Tuple(
     companion object {
         fun vector(x: Double, y: Double, z: Double) : Tuple = Tuple(x, y, z, 0)
         fun point(x: Double, y: Double, z: Double) : Tuple = Tuple(x, y, z, 1)
-        fun color(x: Double, y: Double, z: Double) : Tuple = Tuple(x, y, z, 2)
+        fun color(red: Double, green: Double, blue: Double) : Tuple = Tuple(red, green, blue, 2)
     }
 
     override fun equals(other: Any?): Boolean = (other is Tuple) && x == other.x && y == other.y && z == other.z && w == other.w
