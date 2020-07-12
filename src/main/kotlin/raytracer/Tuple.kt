@@ -11,14 +11,15 @@ class Tuple(
 ) {
 
     companion object {
-        fun point(x: Double, y: Double, z: Double) : Tuple = Tuple(x, y, z, 1)
         fun vector(x: Double, y: Double, z: Double) : Tuple = Tuple(x, y, z, 0)
+        fun point(x: Double, y: Double, z: Double) : Tuple = Tuple(x, y, z, 1)
+        fun color(x: Double, y: Double, z: Double) : Tuple = Tuple(x, y, z, 2)
     }
 
     override fun equals(other: Any?): Boolean = (other is Tuple) && x == other.x && y == other.y && z == other.z && w == other.w
 
     override fun toString(): String {
-        val type = if (isPoint()) "Point" else if (isVector()) "Vector" else "Tuple"
+        val type = if (isPoint()) "Point" else if (isVector()) "Vector" else if (isColor()) "Color" else "Tuple"
         return "$type $x, $y, $z, $w"
     }
 
@@ -30,14 +31,28 @@ class Tuple(
         return w == 0
     }
 
+    fun isColor(): Boolean {
+        return w == 2
+    }
+
     operator fun plus(tuple: Tuple): Tuple {
         if (isPoint() && tuple.isPoint()) throw RuntimeException("Cannot add two points")
-        return Tuple(x + tuple.x, y + tuple.y, z + tuple.z, w + tuple.w)
+        return Tuple(
+                x + tuple.x,
+                y + tuple.y,
+                z + tuple.z,
+                w + if (isColor()) 0 else tuple.w
+        )
     }
 
     operator fun minus(tuple: Tuple): Tuple {
         if (isVector() && tuple.isPoint()) throw RuntimeException("Cannot subtract a point from a vector")
-        return Tuple(x - tuple.x, y - tuple.y, z - tuple.z, w - tuple.w)
+        return Tuple(
+                x - tuple.x,
+                y - tuple.y,
+                z - tuple.z,
+                w - if (isColor()) 0 else tuple.w
+        )
     }
 
     operator fun unaryMinus(): Tuple {
@@ -46,6 +61,16 @@ class Tuple(
 
     operator fun times(d: Double): Tuple {
         return Tuple(x * d, y * d, z * d, (w * d).toInt())
+    }
+
+    operator fun times(tuple: Tuple): Any {
+        if (!isColor()) throw RuntimeException("Cannot multiply non color tuples")
+        return Tuple(x * tuple.x, y * tuple.y, z * tuple.z, w)
+    }
+
+    operator fun times(i: Int): Tuple {
+        if (!isColor()) throw RuntimeException("Cannot multiply non color tuples")
+        return Tuple(x * i, y * i, z * i, w)
     }
 
     operator fun div(i: Int): Any {

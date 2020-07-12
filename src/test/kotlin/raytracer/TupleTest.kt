@@ -127,4 +127,33 @@ internal class TupleTest {
         Tuple.vector(2.0, 3.0, 4.0).cross(Tuple.vector(1.0, 2.0, 3.0)) shouldBe Tuple.vector(1.0, -2.0, 1.0)
     }
 
+    @Test
+    fun `Color are rgb tuples`() {
+        val color = Tuple.color(0.9, 0.6, 0.75)
+
+        color.x shouldBe 0.9
+        color.y shouldBe 0.6
+        color.z shouldBe 0.75
+    }
+
+    @Test
+    fun `Adding colors`() {
+        Tuple.color(0.9, 0.6, 0.75) + Tuple.color(0.7, 0.1, 0.25) shouldBe Tuple.color(1.6, 0.7, 1.0)
+    }
+
+    @Test
+    fun `Subtracting colors`() {
+        Tuple.color(0.9, 0.6, 0.75) - Tuple.color(0.7, 0.1, 0.25) shouldBe Tuple.color(0.20000000000000007, 0.5, 0.5)
+    }
+
+    @Test
+    fun `Multiplying a color by a scalar`() {
+        Tuple.color(0.2, 0.3, 0.4) * 2 shouldBe Tuple.color(0.4, 0.6, 0.8)
+    }
+
+    @Test
+    fun `Multiplying colors`() {
+        Tuple.color(1.0, 0.2, 0.4) * Tuple.color(0.9, 1.0, 0.1) shouldBe Tuple.color(0.9, 0.2, 0.04000000000000001)
+    }
+
 }
