@@ -1,5 +1,7 @@
 package raytracer
 
+import kotlin.system.measureNanoTime
+
 object Matrices {
 
     val IDENTITY = new(
@@ -100,11 +102,15 @@ object Matrices {
 
     fun cofactor(matrix: Array<Array<Double>>, row: Int, column: Int): Double {
         val minor = minor(matrix, row, column)
-        return if (row + column % 2 == 1) -minor else minor
+        return if ((row + column) % 2 == 1) -minor else minor
     }
 
     fun invertible(matrix: Array<Array<Double>>): Boolean {
         return determinant(matrix) != 0.0
+    }
+
+    fun inverse(matrix: Array<Array<Double>>): Array<Array<Double>> {
+        return matrix
     }
 
 }

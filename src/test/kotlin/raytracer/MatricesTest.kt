@@ -248,4 +248,20 @@ internal class MatricesTest {
         Matrices.invertible(matrix) shouldBe false
     }
 
+    @Test
+    fun `Calculating the inverse of a matrix`() {
+        val matrixA = Matrices.new(
+                arrayOf(-5.0, 2.0, 6.0, -8.0),
+                arrayOf(1.0, -5.0, 1.0, 8.0),
+                arrayOf(7.0, 7.0, -6.0, -7.0),
+                arrayOf(1.0, -3.0, 7.0, 4.0)
+        )
+
+        val matrixB = Matrices.inverse(matrixA)
+
+        Matrices.determinant(matrixA) shouldBe 532.0
+        Matrices.cofactor(matrixA, 2, 3) shouldBe -160.0
+        Matrices.cofactor(matrixA, 3, 2) shouldBe 105.0
+    }
+
 }
