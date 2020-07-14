@@ -273,4 +273,63 @@ internal class MatricesTest {
         ))
     }
 
+    @Test
+    fun `Calculating the inverse of another matrix`() {
+        val matrixA = Matrices.new(
+                arrayOf(8.0, -5.0, 9.0, 2.0),
+                arrayOf(7.0, 5.0, 6.0, 1.0),
+                arrayOf(-6.0, 0.0, 9.0, 6.0),
+                arrayOf(-3.0, 0.0, -9.0, -4.0)
+        )
+
+        val matrixB = Matrices.inverse(matrixA)
+
+        Matrices.isIdentical(matrixB, Matrices.new(
+                arrayOf(-0.15385, -0.15385, -0.28205, -0.53846),
+                arrayOf(-0.07692, 0.12308, 0.02564, 0.03077),
+                arrayOf(0.35897, 0.35897, 0.43590, 0.92308),
+                arrayOf(-0.69231, -0.69231, -0.76923, -1.92308)
+        ))
+    }
+
+    @Test
+    fun `Calculating the inverse of a third matrix`() {
+        val matrixA = Matrices.new(
+                arrayOf(9.0, 3.0, 0.0, 9.0),
+                arrayOf(-5.0, -2.0, -6.0, -3.0),
+                arrayOf(-4.0, 9.0, 6.0, 4.0),
+                arrayOf(-7.0, 6.0, 6.0, 2.0)
+        )
+
+        val matrixB = Matrices.inverse(matrixA)
+
+        Matrices.isIdentical(matrixB, Matrices.new(
+                arrayOf(-0.04074, -0.07778, 0.14444, -0.22222),
+                arrayOf(-0.07778, 0.03333, 0.36667, -0.33333),
+                arrayOf(-0.02901, -0.14630, -0.10926, 0.12963),
+                arrayOf(0.17778, 0.06667, -0.26667, 0.33333)
+        ))
+    }
+
+    @Test
+    fun `Multiplying a product by its inverse`() {
+        val matrixA = Matrices.new(
+                arrayOf(3.0, -9.0, 7.0, 3.0),
+                arrayOf(3.0, -8.0, 2.0, -9.0),
+                arrayOf(-4.0, 4.0, 4.0, 1.0),
+                arrayOf(-6.0, 5.0, -1.0, 1.0)
+        )
+
+        val matrixB = Matrices.new(
+                arrayOf(8.0, 2.0, 2.0, 2.0),
+                arrayOf(3.0, -1.0, 7.0, 0.0),
+                arrayOf(7.0, 0.0, 5.0, 4.0),
+                arrayOf(6.0, -2.0, 0.0, 5.0)
+        )
+
+        val matrixC = Matrices.multiply(matrixA, matrixB)
+
+        Matrices.isIdentical(Matrices.multiply(matrixC, Matrices.inverse(matrixB)), matrixA)
+    }
+
 }
