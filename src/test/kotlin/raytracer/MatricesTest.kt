@@ -208,4 +208,18 @@ internal class MatricesTest {
 
     }
 
+    @Test
+    fun `Calculating the determinant of a 3x3 matrix`() {
+        val matrix = Matrices.new(
+                arrayOf(1.0, 2.0, 6.0),
+                arrayOf(-5.0, 8.0, -4.0),
+                arrayOf(2.0, 6.0, 4.0)
+        )
+
+        Matrices.cofactor(matrix, 0, 0) shouldBe 56.0
+        Matrices.cofactor(matrix, 0, 1) shouldBe 12.0
+        Matrices.cofactor(matrix, 0, 2) shouldBe -46.0
+        Matrices.determinant(matrix) shouldBe -196.0
+    }
+
 }

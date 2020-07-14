@@ -67,7 +67,12 @@ object Matrices {
         if (matrix.size == 2) {
             return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
         }
-        return 0.0
+
+        var determinant = 0.0
+        for (column in matrix.indices) {
+            determinant += matrix[0][column] * cofactor(matrix, 0, column)
+        }
+        return determinant
     }
 
     fun submatrix(matrix: Array<Array<Double>>, excludeRow: Int, excludeColumn: Int): Array<Array<Double>> {
