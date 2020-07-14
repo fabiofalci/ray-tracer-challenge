@@ -63,4 +63,11 @@ object Matrices {
         return newMatrix
     }
 
+    fun determinant(matrix: Array<Array<Double>>): Double {
+        if (matrix.size == 2) {
+            return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
+        }
+        return 0.0
+    }
+
 }

@@ -139,4 +139,14 @@ internal class MatricesTest {
         Matrices.isIdentical(Matrices.transpose(Matrices.IDENTITY), Matrices.IDENTITY)
     }
 
+    @Test
+    fun `Calculating the determinant of a 2x2 matrix`() {
+        val matrix = Matrices.new(
+                arrayOf(1.0, 5.0),
+                arrayOf(-3.0, 2.0)
+        )
+
+        Matrices.determinant(matrix) shouldBe 17.0
+    }
+
 }
