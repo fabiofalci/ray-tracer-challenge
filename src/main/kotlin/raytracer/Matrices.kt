@@ -93,4 +93,9 @@ object Matrices {
         return determinant(submatrix(matrix, row, column))
     }
 
+    fun cofactor(matrix: Array<Array<Double>>, row: Int, column: Int): Double {
+        val minor = minor(matrix, row, column)
+        return if (row + column % 2 == 1) -minor else minor
+    }
+
 }

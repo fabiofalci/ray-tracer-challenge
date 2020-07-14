@@ -191,6 +191,20 @@ internal class MatricesTest {
 
         Matrices.determinant(matrixB) shouldBe 25.0
         Matrices.minor(matrixA, 1, 0) shouldBe 25.0
+    }
+
+    @Test
+    fun `Calculating a cofactor of a 3x3 matrix`() {
+        val matrix = Matrices.new(
+                arrayOf(3.0, 5.0, 0.0),
+                arrayOf(2.0, -1.0, -7.0),
+                arrayOf(6.0, -1.0, 5.0)
+        )
+
+        Matrices.minor(matrix, 0, 0) shouldBe -12.0
+        Matrices.cofactor(matrix, 0, 0) shouldBe -12.0
+        Matrices.minor(matrix, 1, 0) shouldBe 25.0
+        Matrices.cofactor(matrix, 1, 0) shouldBe -25.0
 
     }
 
