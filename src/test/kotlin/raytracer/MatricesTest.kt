@@ -232,7 +232,7 @@ internal class MatricesTest {
         )
 
         Matrices.determinant(matrix) shouldBe -2120.0
-        Matrices.invertible(matrix) shouldBe true
+        Matrices.isInvertible(matrix) shouldBe true
     }
 
     @Test
@@ -245,7 +245,7 @@ internal class MatricesTest {
         )
 
         Matrices.determinant(matrix) shouldBe 0.0
-        Matrices.invertible(matrix) shouldBe false
+        Matrices.isInvertible(matrix) shouldBe false
     }
 
     @Test
@@ -261,7 +261,16 @@ internal class MatricesTest {
 
         Matrices.determinant(matrixA) shouldBe 532.0
         Matrices.cofactor(matrixA, 2, 3) shouldBe -160.0
+        matrixB[3][2] shouldBe -160.0 / 532.0
         Matrices.cofactor(matrixA, 3, 2) shouldBe 105.0
+        matrixB[2][3] shouldBe 105.0 / 532.0
+
+        Matrices.isIdentical(matrixB, Matrices.new(
+                arrayOf(0.21805, 0.45113, 0.24060, -0.04511),
+                arrayOf(-0.80827, -1.45677, -0.44361, 0.52068),
+                arrayOf(-0.07895, -0.22368, -0.05263, 0.19737),
+                arrayOf(-0.52256, -0.81391, -0.30075, 0.30639)
+        ))
     }
 
 }
