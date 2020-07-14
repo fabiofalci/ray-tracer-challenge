@@ -222,4 +222,30 @@ internal class MatricesTest {
         Matrices.determinant(matrix) shouldBe -196.0
     }
 
+    @Test
+    fun `Testing an invertible matrix for invertibility`() {
+        val matrix = Matrices.new(
+                arrayOf(6.0, 4.0, 4.0, 4.0),
+                arrayOf(5.0, 5.0, 7.0, 6.0),
+                arrayOf(4.0, -9.0, 3.0, -7.0),
+                arrayOf(9.0, 1.0, 7.0, -6.0)
+        )
+
+        Matrices.determinant(matrix) shouldBe -2120.0
+        Matrices.invertible(matrix) shouldBe true
+    }
+
+    @Test
+    fun `Testing a noninvertible matrix for invertibility`() {
+        val matrix = Matrices.new(
+                arrayOf(-4.0, 2.0, -2.0, -3.0),
+                arrayOf(9.0, 6.0, 2.0, 6.0),
+                arrayOf(0.0, -5.0, 1.0, -5.0),
+                arrayOf(0.0, 0.0, 0.0, 0.0)
+        )
+
+        Matrices.determinant(matrix) shouldBe 0.0
+        Matrices.invertible(matrix) shouldBe false
+    }
+
 }

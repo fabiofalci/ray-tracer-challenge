@@ -103,4 +103,8 @@ object Matrices {
         return if (row + column % 2 == 1) -minor else minor
     }
 
+    fun invertible(matrix: Array<Array<Double>>): Boolean {
+        return determinant(matrix) != 0.0
+    }
+
 }
