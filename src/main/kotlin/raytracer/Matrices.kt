@@ -70,4 +70,27 @@ object Matrices {
         return 0.0
     }
 
+    fun submatrix(matrix: Array<Array<Double>>, excludeRow: Int, excludeColumn: Int): Array<Array<Double>> {
+        val submatrix = new(matrix.size - 1)
+
+        var newRow = 0
+        for (x in matrix.indices) {
+            var newColumn = 0
+            if (x != excludeRow) {
+                for (y in matrix.indices) {
+                    if (y != excludeColumn) {
+                        submatrix[newRow][newColumn++] = matrix[x][y]
+                    }
+                }
+                newRow++
+            }
+        }
+
+        return submatrix
+    }
+
+    fun minor(matrix: Array<Array<Double>>, row: Int, column: Int): Double {
+        return determinant(submatrix(matrix, row, column))
+    }
+
 }

@@ -149,4 +149,49 @@ internal class MatricesTest {
         Matrices.determinant(matrix) shouldBe 17.0
     }
 
+    @Test
+    fun `A submatrix of a 3x3 matrix is a 2x2 matrix`() {
+        val matrix = Matrices.new(
+                arrayOf(1.0, 5.0, 0.0),
+                arrayOf(-3.0, 2.0, 7.0),
+                arrayOf(0.0, 6.0, -3.0)
+        )
+
+        Matrices.isIdentical(Matrices.submatrix(matrix, 0, 2), Matrices.new(
+                arrayOf(-3.0, 2.0),
+                arrayOf(0.0, 6.0)
+        ))
+    }
+
+    @Test
+    fun `A submatrix of a 4x4 matrix is a 3x3 matrix`() {
+        val matrix = Matrices.new(
+                arrayOf(-6.0, 1.0, 1.0, 6.0),
+                arrayOf(-8.0, 5.0, 8.0, 6.0),
+                arrayOf(-1.0, 0.0, 8.0, 2.0),
+                arrayOf(-7.0, 1.0, -1.0, 1.0)
+        )
+
+        Matrices.isIdentical(Matrices.submatrix(matrix, 2, 1), Matrices.new(
+                arrayOf(-6.0, 1.0, 6.0),
+                arrayOf(-8.0, 8.0, 6.0),
+                arrayOf(-7.0, -1.0, 1.0)
+        ))
+    }
+
+    @Test
+    fun `Calculating a minor of a 3x3 matrix`() {
+        val matrixA = Matrices.new(
+                arrayOf(3.0, 5.0, 0.0),
+                arrayOf(2.0, -1.0, -7.0),
+                arrayOf(6.0, -1.0, 5.0)
+        )
+
+        val matrixB = Matrices.submatrix(matrixA, 1, 0)
+
+        Matrices.determinant(matrixB) shouldBe 25.0
+        Matrices.minor(matrixA, 1, 0) shouldBe 25.0
+
+    }
+
 }
