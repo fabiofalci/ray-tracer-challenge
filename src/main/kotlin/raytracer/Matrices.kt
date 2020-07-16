@@ -19,6 +19,18 @@ object Matrices {
         }
     }
 
+    fun print(matrix: Array<Array<Double>>) {
+        for (row in matrix.indices) {
+            for (col in matrix.indices) {
+                print("${matrix[row][col]}")
+                if (col != matrix.lastIndex) {
+                    print(", ")
+                }
+            }
+            println()
+        }
+    }
+
     fun isIdentical(matrixA: Array<Array<Double>>, matrixB: Array<Array<Double>>): Boolean {
         return matrixA.contentDeepEquals(matrixB)
     }
