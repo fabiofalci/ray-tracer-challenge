@@ -1,5 +1,6 @@
 package raytracer
 
+import raytracer.math.eq
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -16,7 +17,7 @@ class Tuple(
         fun color(red: Double, green: Double, blue: Double) : Tuple = Tuple(red, green, blue, 2)
     }
 
-    override fun equals(other: Any?): Boolean = (other is Tuple) && x == other.x && y == other.y && z == other.z && w == other.w
+    override fun equals(other: Any?): Boolean = (other is Tuple) && x eq other.x && y eq other.y && z eq other.z && w == other.w
 
     override fun toString(): String {
         val type = if (isPoint()) "Point" else if (isVector()) "Vector" else if (isColor()) "Color" else "Tuple"
