@@ -31,4 +31,22 @@ object Transformations {
         )
     }
 
+    fun rotationY(radians: Double): Array<Array<Double>> {
+        return Matrices.new(
+                arrayOf(cos(radians), 0.0, sin(radians), 0.0),
+                arrayOf(0.0, 1.0, 0.0, 0.0),
+                arrayOf(-sin(radians), 0.0, cos(radians), 0.0),
+                arrayOf(0.0, 0.0, 0.0, 1.0)
+        )
+    }
+
+    fun rotationZ(radians: Double): Array<Array<Double>> {
+        return Matrices.new(
+                arrayOf(cos(radians), -sin(radians), 0.0, 0.0),
+                arrayOf(sin(radians), cos(radians), 0.0, 0.0),
+                arrayOf(0.0, 0.0, 1.0, 0.0),
+                arrayOf(0.0, 0.0, 0.0, 1.0)
+        )
+    }
+
 }

@@ -81,4 +81,24 @@ internal class TransformationsTest {
         Matrices.multiply(halfQuarter, point) shouldBe Tuple.point(0.0, sqrt(2.0)/2, -sqrt(2.0)/2)
     }
 
+    @Test
+    fun `Rotating a point around the y axis`() {
+        val point = Tuple.point(0.0, 0.0, 1.0)
+        val halfQuarter = Transformations.rotationY(Math.PI / 4)
+        val fullQuarter = Transformations.rotationY(Math.PI / 2)
+
+        Matrices.multiply(halfQuarter, point) shouldBe Tuple.point(sqrt(2.0)/2, 0.0, sqrt(2.0)/2)
+        Matrices.multiply(fullQuarter, point) shouldBe Tuple.point(1.0, 0.0, 0.0)
+    }
+
+    @Test
+    fun `Rotating a point around the z axis`() {
+        val point = Tuple.point(0.0, 1.0, 0.0)
+        val halfQuarter = Transformations.rotationZ(Math.PI / 4)
+        val fullQuarter = Transformations.rotationZ(Math.PI / 2)
+
+        Matrices.multiply(halfQuarter, point) shouldBe Tuple.point(-sqrt(2.0)/2, sqrt(2.0)/2, 0.0)
+        Matrices.multiply(fullQuarter, point) shouldBe Tuple.point(-1.0, 0.0, 0.0)
+    }
+
 }
