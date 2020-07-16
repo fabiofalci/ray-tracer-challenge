@@ -60,7 +60,7 @@ object Matrices {
                     matrix[row][3] * tuple.w
         }
 
-        return Tuple.point(array[0]!!, array[1]!!, array[2]!!)
+        return Tuple(array[0]!!, array[1]!!, array[2]!!, tuple.w)
     }
 
     fun transpose(matrix: Array<Array<Double>>): Array<Array<Double>> {
