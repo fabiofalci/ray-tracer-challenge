@@ -101,4 +101,52 @@ internal class TransformationsTest {
         Matrices.multiply(fullQuarter, point) shouldBe Tuple.point(-1.0, 0.0, 0.0)
     }
 
+    @Test
+    fun `A shearing transformation moves x in proportion to y`() {
+        val transform = Transformations.shearing(1.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+        val point = Tuple.point(2.0, 3.0, 4.0)
+
+        Matrices.multiply(transform, point) shouldBe Tuple.point(5.0, 3.0, 4.0)
+    }
+
+    @Test
+    fun `A shearing transformation moves x in proportion to z`() {
+        val transform = Transformations.shearing(0.0, 1.0, 0.0, 0.0, 0.0, 0.0)
+        val point = Tuple.point(2.0, 3.0, 4.0)
+
+        Matrices.multiply(transform, point) shouldBe Tuple.point(6.0, 3.0, 4.0)
+    }
+
+    @Test
+    fun `A shearing transformation moves y in proportion to x`() {
+        val transform = Transformations.shearing(0.0, 0.0, 1.0, 0.0, 0.0, 0.0)
+        val point = Tuple.point(2.0, 3.0, 4.0)
+
+        Matrices.multiply(transform, point) shouldBe Tuple.point(2.0, 5.0, 4.0)
+    }
+
+    @Test
+    fun `A shearing transformation moves y in proportion to z`() {
+        val transform = Transformations.shearing(0.0, 0.0, 0.0, 1.0, 0.0, 0.0)
+        val point = Tuple.point(2.0, 3.0, 4.0)
+
+        Matrices.multiply(transform, point) shouldBe Tuple.point(2.0, 7.0, 4.0)
+    }
+
+    @Test
+    fun `A shearing transformation moves z in proportion to x`() {
+        val transform = Transformations.shearing(0.0, 0.0, 0.0, 0.0, 1.0, 0.0)
+        val point = Tuple.point(2.0, 3.0, 4.0)
+
+        Matrices.multiply(transform, point) shouldBe Tuple.point(2.0, 3.0, 6.0)
+    }
+
+    @Test
+    fun `A shearing transformation moves z in proportion to y`() {
+        val transform = Transformations.shearing(0.0, 0.0, 0.0, 0.0, 0.0, 1.0)
+        val point = Tuple.point(2.0, 3.0, 4.0)
+
+        Matrices.multiply(transform, point) shouldBe Tuple.point(2.0, 3.0, 7.0)
+    }
+
 }

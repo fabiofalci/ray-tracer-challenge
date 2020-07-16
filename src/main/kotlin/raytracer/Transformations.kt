@@ -49,4 +49,13 @@ object Transformations {
         )
     }
 
+    fun shearing(xy: Double, xz: Double, yx: Double, yz: Double, zx: Double, zy: Double): Array<Array<Double>> {
+        return Matrices.new(
+                arrayOf(1.0, xy, xz, 0.0),
+                arrayOf(yx, 1.0, yz, 0.0),
+                arrayOf(zx, zy, 1.0, 0.0),
+                arrayOf(0.0, 0.0, 0.0, 1.0)
+        )
+    }
+
 }
