@@ -149,4 +149,36 @@ internal class TransformationsTest {
         Matrices.multiply(transform, point) shouldBe Tuple.point(2.0, 3.0, 7.0)
     }
 
+    @Test
+    fun `Individual transformations are applied in sequence`() {
+        val point = Tuple.point(1.0, 0.0, 1.0)
+        val a = Transformations.rotationX(PI/2.0)
+        val b = Transformations.scaling(5.0, 5.0, 5.0)
+        val c = Transformations.translation(10.0, 5.0, 7.0)
+
+        // rotation
+        val p2 = Matrices.multiply(a, point)
+        p2 shouldBe Tuple.point(1.0, -1.0, 0.0)
+
+        // scaling
+        val p3 = Matrices.multiply(b, p2)
+        p3 shouldBe Tuple.point(5.0, -5.0, 0.0)
+
+        // translation
+        val p4 = Matrices.multiply(c, p3)
+        p4 shouldBe Tuple.point(15.0, 0.0, 7.0)
+
+    }
+
+    @Test
+    fun `Chained transformations must be applied in reverse order`() {
+        val point = Tuple.point(1.0, 0.0, 1.0)
+        val a = Transformations.rotationX(PI/2.0)
+        val b = Transformations.scaling(5.0, 5.0, 5.0)
+        val c = Transformations.translation(10.0, 5.0, 7.0)
+
+        val transform = Matrices.multiply(Matrices.multiply(c, b), a)
+        Matrices.multiply(transform, point) shouldBe Tuple.point(15.0, 0.0, 7.0)
+    }
+
 }
