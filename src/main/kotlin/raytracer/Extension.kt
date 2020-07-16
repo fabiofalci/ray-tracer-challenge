@@ -1,4 +1,4 @@
-package raytracer.math
+package raytracer
 
 import kotlin.math.abs
 

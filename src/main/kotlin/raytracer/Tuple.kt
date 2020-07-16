@@ -1,6 +1,5 @@
 package raytracer
 
-import raytracer.math.eq
 import kotlin.math.pow
 import kotlin.math.sqrt
 
