@@ -2,7 +2,7 @@ package raytracer
 
 import kotlin.math.roundToInt
 
-class Canvas(private val width: Int, private val height: Int) {
+class Canvas(val width: Int, val height: Int) {
 
     private val matrix: Array<Array<Tuple>> = Array(width) {
         Array(height) {

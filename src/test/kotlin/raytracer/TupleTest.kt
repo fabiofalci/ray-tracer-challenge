@@ -86,7 +86,7 @@ internal class TupleTest {
     }
 
     @Test
-    fun `Multiplying a tuple`() {
+    fun `Multiplying a tuple by a scalar and fraction`() {
         Tuple(1.0, -2.0, 3.0, -4) * 3.5 shouldBe Tuple(3.5, -7.0, 10.5, -14)
         Tuple(1.0, -2.0, 3.0, -4) * 0.5 shouldBe Tuple(0.5, -1.0, 1.5, -2)
     }
