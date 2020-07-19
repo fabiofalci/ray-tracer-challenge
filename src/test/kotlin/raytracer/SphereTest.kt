@@ -13,8 +13,10 @@ internal class SphereTest {
         val xs = sphere.intersect(ray)
 
         xs.size shouldBe 2
-        xs[0] shouldBe 4.0
-        xs[1] shouldBe 6.0
+        xs[0].time shouldBe 4.0
+        xs[0].obj shouldBe sphere
+        xs[1].time shouldBe 6.0
+        xs[1].obj shouldBe sphere
     }
 
     @Test
@@ -25,8 +27,10 @@ internal class SphereTest {
         val xs = sphere.intersect(ray)
 
         xs.size shouldBe 2
-        xs[0] shouldBe 5.0
-        xs[1] shouldBe 5.0
+        xs[0].time shouldBe 5.0
+        xs[0].obj shouldBe sphere
+        xs[1].time shouldBe 5.0
+        xs[1].obj shouldBe sphere
     }
 
     @Test
@@ -47,8 +51,10 @@ internal class SphereTest {
         val xs = sphere.intersect(ray)
 
         xs.size shouldBe 2
-        xs[0] shouldBe -1.0
-        xs[1] shouldBe 1.0
+        xs[0].time shouldBe -1.0
+        xs[0].obj shouldBe sphere
+        xs[1].time shouldBe 1.0
+        xs[1].obj shouldBe sphere
     }
 
     @Test
@@ -59,7 +65,21 @@ internal class SphereTest {
         val xs = sphere.intersect(ray)
 
         xs.size shouldBe 2
-        xs[0] shouldBe -6.0
-        xs[1] shouldBe -4.0
+        xs[0].time shouldBe -6.0
+        xs[0].obj shouldBe sphere
+        xs[1].time shouldBe -4.0
+        xs[1].obj shouldBe sphere
+    }
+
+    @Test
+    fun `Intersect sets the object on the intersection`() {
+        val ray = Ray(Tuple.point(0.0, 0.0, -5.0), Tuple.vector(0.0, 0.0, 1.0))
+        val sphere = Sphere()
+
+        val xs = sphere.intersect(ray)
+
+        xs.size shouldBe 2
+        xs[0].obj shouldBe sphere
+        xs[1].obj shouldBe sphere
     }
 }
