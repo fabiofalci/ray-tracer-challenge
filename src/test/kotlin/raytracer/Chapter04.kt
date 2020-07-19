@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test
 import java.io.File
 import kotlin.math.PI
 
-internal class Chapter04 {
+internal class Chapter04Test {
 
     @Test
     fun clock() {
