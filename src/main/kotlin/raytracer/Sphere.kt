@@ -5,7 +5,7 @@ import kotlin.math.sqrt
 
 class Sphere {
 
-    fun intersect(ray: Ray): List<Intersection> {
+    fun intersect(ray: Ray): Intersections {
         val sphereToRay = ray.origin - Tuple.point(0.0, 0.0, 0.0)
 
         val a = ray.direction.dot(ray.direction)
@@ -15,10 +15,10 @@ class Sphere {
         val discriminant = b.pow(2) - 4 * a * c
 
         if (discriminant < 0) {
-            return emptyList()
+            return Intersections()
         }
 
-        return Intersection.intersections(
+        return Intersections(
                 Intersection((-b - sqrt(discriminant)) / (2.0 * a), this),
                 Intersection((-b + sqrt(discriminant)) / (2.0 * a), this)
         )

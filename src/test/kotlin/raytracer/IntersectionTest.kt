@@ -20,11 +20,20 @@ internal class IntersectionTest {
         val i1 = Intersection(1.0, sphere)
         val i2 = Intersection(2.0, sphere)
 
-        val xs = Intersection.intersections(i1, i2)
+        val xs = Intersections(i1, i2)
 
         xs.size shouldBe 2
 
-        xs[0].time shouldBe 1.0
-        xs[1].time shouldBe 2.0
+        xs.list[0].time shouldBe 1.0
+        xs.list[1].time shouldBe 2.0
+    }
+
+    @Test
+    fun `The hit when all intersections have positive t`() {
+        val sphere = Sphere()
+        val i1 = Intersection(1.0, sphere)
+        val i2 = Intersection(2.0, sphere)
+
+        val xs = Intersections(i1, i2)
     }
 }

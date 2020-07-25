@@ -13,10 +13,10 @@ internal class SphereTest {
         val xs = sphere.intersect(ray)
 
         xs.size shouldBe 2
-        xs[0].time shouldBe 4.0
-        xs[0].obj shouldBe sphere
-        xs[1].time shouldBe 6.0
-        xs[1].obj shouldBe sphere
+        xs.list[0].time shouldBe 4.0
+        xs.list[0].obj shouldBe sphere
+        xs.list[1].time shouldBe 6.0
+        xs.list[1].obj shouldBe sphere
     }
 
     @Test
@@ -27,10 +27,10 @@ internal class SphereTest {
         val xs = sphere.intersect(ray)
 
         xs.size shouldBe 2
-        xs[0].time shouldBe 5.0
-        xs[0].obj shouldBe sphere
-        xs[1].time shouldBe 5.0
-        xs[1].obj shouldBe sphere
+        xs.list[0].time shouldBe 5.0
+        xs.list[0].obj shouldBe sphere
+        xs.list[1].time shouldBe 5.0
+        xs.list[1].obj shouldBe sphere
     }
 
     @Test
@@ -51,10 +51,10 @@ internal class SphereTest {
         val xs = sphere.intersect(ray)
 
         xs.size shouldBe 2
-        xs[0].time shouldBe -1.0
-        xs[0].obj shouldBe sphere
-        xs[1].time shouldBe 1.0
-        xs[1].obj shouldBe sphere
+        xs.list[0].time shouldBe -1.0
+        xs.list[0].obj shouldBe sphere
+        xs.list[1].time shouldBe 1.0
+        xs.list[1].obj shouldBe sphere
     }
 
     @Test
@@ -65,10 +65,10 @@ internal class SphereTest {
         val xs = sphere.intersect(ray)
 
         xs.size shouldBe 2
-        xs[0].time shouldBe -6.0
-        xs[0].obj shouldBe sphere
-        xs[1].time shouldBe -4.0
-        xs[1].obj shouldBe sphere
+        xs.list[0].time shouldBe -6.0
+        xs.list[0].obj shouldBe sphere
+        xs.list[1].time shouldBe -4.0
+        xs.list[1].obj shouldBe sphere
     }
 
     @Test
@@ -79,7 +79,7 @@ internal class SphereTest {
         val xs = sphere.intersect(ray)
 
         xs.size shouldBe 2
-        xs[0].obj shouldBe sphere
-        xs[1].obj shouldBe sphere
+        xs.list[0].obj shouldBe sphere
+        xs.list[1].obj shouldBe sphere
     }
 }
