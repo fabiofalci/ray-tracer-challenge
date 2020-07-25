@@ -34,6 +34,43 @@ internal class IntersectionTest {
         val i1 = Intersection(1.0, sphere)
         val i2 = Intersection(2.0, sphere)
 
-        val xs = Intersections(i1, i2)
+        val xs = Intersections(i2, i1)
+
+        xs.hit() shouldBe i1
+    }
+
+    @Test
+    fun `The hit when some intersections have negative t`() {
+        val sphere = Sphere()
+        val i1 = Intersection(-1.0, sphere)
+        val i2 = Intersection(1.0, sphere)
+
+        val xs = Intersections(i2, i1)
+
+        xs.hit() shouldBe i2
+    }
+
+    @Test
+    fun `The hit when all intersections have negative t`() {
+        val sphere = Sphere()
+        val i1 = Intersection(-2.0, sphere)
+        val i2 = Intersection(-1.0, sphere)
+
+        val xs = Intersections(i2, i1)
+
+        xs.hit() shouldBe null
+    }
+
+    @Test
+    fun `The hit is always the lowest nonnegative intersection`() {
+        val sphere = Sphere()
+        val i1 = Intersection(5.0, sphere)
+        val i2 = Intersection(7.0, sphere)
+        val i3 = Intersection(-3.0, sphere)
+        val i4 = Intersection(2.0, sphere)
+
+        val xs = Intersections(i1, i2, i3, i4)
+
+        xs.hit() shouldBe i4
     }
 }
