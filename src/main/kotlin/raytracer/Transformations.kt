@@ -5,7 +5,8 @@ import kotlin.math.sin
 
 object Transformations {
 
-    fun translation(x: Double, y: Double, z: Double): Array<Array<Double>> { return Matrices.new(
+    fun translation(x: Double, y: Double, z: Double): Array<Array<Double>> {
+        return Matrices.new(
                 arrayOf(1.0, 0.0, 0.0, x),
                 arrayOf(0.0, 1.0, 0.0, y),
                 arrayOf(0.0, 0.0, 1.0, z),
