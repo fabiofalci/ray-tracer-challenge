@@ -2,6 +2,9 @@ struct Tuple(f32, f32, f32, u8);
 
 trait Tuples {
     fn new(x: f32, y: f32, z: f32, w: u8) -> Self;
+    fn point(x: f32, y: f32, z: f32) -> Self;
+    fn vector(x: f32, y: f32, z: f32) -> Self;
+
     fn x(&self) -> f32;
     fn y(&self) -> f32;
     fn z(&self) -> f32;
@@ -15,6 +18,14 @@ impl Tuples for Tuple {
 
     fn new(x: f32, y: f32, z: f32, w: u8) -> Tuple {
         Tuple(x, y, z, w)
+    }
+
+    fn point(x: f32, y: f32, z: f32) -> Tuple {
+        Tuple(x, y, z, 1)
+    }
+
+    fn vector(x: f32, y: f32, z: f32) -> Tuple {
+        Tuple(x, y, z, 0)
     }
 
     fn x(&self) -> f32 {
@@ -65,6 +76,24 @@ mod tests {
         assert_eq!(tuple.x(), 4.3);
         assert_eq!(tuple.y(), -4.2);
         assert_eq!(tuple.z(), 3.1);
+        assert_eq!(tuple.w(), 0);
+        assert_eq!(tuple.is_point(), false);
+        assert_eq!(tuple.is_vector(), true);
+    }
+
+    #[test]
+    fn create_point() {
+        let tuple: Tuple = Tuples::point(4.3, -4.2, 3.1);
+
+        assert_eq!(tuple.w(), 1);
+        assert_eq!(tuple.is_point(), true);
+        assert_eq!(tuple.is_vector(), false);
+    }
+
+    #[test]
+    fn create_vector() {
+        let tuple: Tuple = Tuples::vector(4.3, -4.2, 3.1);
+
         assert_eq!(tuple.w(), 0);
         assert_eq!(tuple.is_point(), false);
         assert_eq!(tuple.is_vector(), true);
