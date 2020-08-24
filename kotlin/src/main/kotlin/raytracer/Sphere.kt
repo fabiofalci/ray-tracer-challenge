@@ -5,6 +5,8 @@ import kotlin.math.sqrt
 
 class Sphere {
 
+    var transform = Matrices.IDENTITY
+
     fun intersect(ray: Ray): Intersections {
         val sphereToRay = ray.origin - Tuple.point(0.0, 0.0, 0.0)
 

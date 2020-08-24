@@ -7,6 +7,6 @@ class Ray(val origin: Tuple, val direction: Tuple) {
     }
 
     fun transform(transformation: Array<Array<Double>>): Ray {
-        TODO("Not yet implemented")
+        return Ray(Matrices.multiply(transformation, origin), Matrices.multiply(transformation, direction))
     }
 }

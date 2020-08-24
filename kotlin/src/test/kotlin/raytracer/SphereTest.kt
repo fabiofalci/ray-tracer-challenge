@@ -82,4 +82,20 @@ internal class SphereTest {
         xs.list[0].obj shouldBe sphere
         xs.list[1].obj shouldBe sphere
     }
+
+    @Test
+    fun `A sphere's default transformation`() {
+        val sphere = Sphere()
+
+        sphere.transform shouldBe Matrices.IDENTITY
+    }
+
+    @Test
+    fun `Changing a sphere's transformation`() {
+        val sphere = Sphere()
+        val translation = Transformations.translation(2.0, 3.0, 4.0)
+        sphere.transform = translation
+
+        sphere.transform contentDeepEquals Transformations.translation(2.0, 3.0, 4.0) shouldBe true
+    }
 }
