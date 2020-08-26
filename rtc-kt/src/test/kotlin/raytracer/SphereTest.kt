@@ -98,4 +98,28 @@ internal class SphereTest {
 
         sphere.transform contentDeepEquals Transformations.translation(2.0, 3.0, 4.0) shouldBe true
     }
+
+    @Test
+    fun `Intersecting a scaled sphere with a ray`() {
+        val ray = Ray(Tuple.point(0.0, 0.0, -5.0), Tuple.vector(0.0, 0.0, 1.0))
+        val sphere = Sphere()
+
+        sphere.transform = Transformations.scaling(2.0, 2.0, 2.0)
+
+        val intersections = sphere.intersect(ray)
+        intersections.size shouldBe 2
+        intersections.list[0].time shouldBe 3.0
+        intersections.list[1].time shouldBe 7.0
+    }
+
+    @Test
+    fun `Intersecting a translated sphere with a ray`() {
+        val ray = Ray(Tuple.point(0.0, 0.0, -5.0), Tuple.vector(0.0, 0.0, 1.0))
+        val sphere = Sphere()
+
+        sphere.transform = Transformations.translation(5.0, 0.0, 0.0)
+
+        val intersections = sphere.intersect(ray)
+        intersections.size shouldBe 0
+    }
 }
