@@ -8,28 +8,22 @@ internal class Chapter05Test {
 
     @Test
     fun `Cast rays at a sphere`() {
-        val colors = listOf(Colors.RED, Colors.GREEN, Colors.BLUE, Colors.WHITE)
         val canvas = Canvas(500, 500)
-        val center = Tuple.point(canvas.width / 2.0, 0.0, canvas.height / 2.0)
-
-
-        val ray = Ray(Tuple.point(0.0, 0.0, 10.0), Tuple.vector(0.0, 0.0, 1.0))
         val sphere = Sphere()
 
+        val translation = Transformations.translation(250.0, 250.0, 10.0)
+        val scaling = Transformations.scaling(230.0, 230.0, 5.0)
+        sphere.transform = Matrices.multiply(translation, scaling)
 
-        sphere.intersect(ray)
-
-
-
-        val initialPoint = Tuple.point(0.0, 0.0, 1.0)
-
-        for (i in 1..12) {
-            val transformation = Transformations.rotationY(i * (PI/6.0))
-            // rotate on y, scale 3/8 of width and move to center
-            val point = Matrices.multiply(transformation, initialPoint) * (3.0 / 8.0 * canvas.width) + center
-
-            println("$i ${point.x} ${point.z}")
-            canvas.writePixel(point.x.toInt(), point.z.toInt(), colors.shuffled().first())
+        for (x in 0..canvas.width) {
+            for (y in 0..canvas.height) {
+                val ray = Ray(Tuple.point(x.toDouble(), y.toDouble(), -20.0), Tuple.vector(0.0, 0.0, 2.0))
+                val intersections = sphere.intersect(ray)
+                val hit = intersections.hit()
+                if (hit != null) {
+                    canvas.writePixel(x, y, Colors.RED)
+                }
+            }
         }
 
         File("/tmp/canvas.ppm").writeText(canvas.toPPM())
