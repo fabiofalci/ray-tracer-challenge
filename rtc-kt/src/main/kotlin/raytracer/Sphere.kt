@@ -7,12 +7,12 @@ class Sphere {
 
     var transform = Matrices.IDENTITY
 
-    fun intersect(originalRay: Ray): Intersections {
-        val ray = originalRay.transform(Matrices.inverse(transform))
-        val sphereToRay = ray.origin - Tuple.point(0.0, 0.0, 0.0)
+    fun intersect(ray: Ray): Intersections {
+        val transformedRay = ray.transform(Matrices.inverse(transform))
+        val sphereToRay = transformedRay.origin - Tuple.point(0.0, 0.0, 0.0)
 
-        val a = ray.direction.dot(ray.direction)
-        val b = 2 * ray.direction.dot(sphereToRay)
+        val a = transformedRay.direction.dot(transformedRay.direction)
+        val b = 2 * transformedRay.direction.dot(sphereToRay)
         val c = sphereToRay.dot(sphereToRay) - 1
 
         val discriminant = b.pow(2) - 4 * a * c
