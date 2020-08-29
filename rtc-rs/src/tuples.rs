@@ -1,3 +1,5 @@
+use std::ops::{Add};
+
 struct Tuple(f32, f32, f32, u8);
 
 trait Tuples {
@@ -15,7 +17,6 @@ trait Tuples {
 }
 
 impl Tuples for Tuple {
-
     fn new(x: f32, y: f32, z: f32, w: u8) -> Tuple {
         Tuple(x, y, z, w)
     }
@@ -50,6 +51,14 @@ impl Tuples for Tuple {
 
     fn is_vector(&self) -> bool {
         self.w() == 0
+    }
+}
+
+impl Add for Tuple {
+    type Output = Tuple;
+
+    fn add(self, rhs: Self) -> Self::Output {
+        Tuples::new(self.x() + rhs.x(), self.y() + rhs.y(), self.z() + rhs.z(), self.w() + rhs.w())
     }
 }
 
@@ -97,6 +106,19 @@ mod tests {
         assert_eq!(tuple.w(), 0);
         assert_eq!(tuple.is_point(), false);
         assert_eq!(tuple.is_vector(), true);
+    }
+
+    #[test]
+    fn adding_two_tuples() {
+        let a1: Tuple = Tuples::new(3.0, -2.0, 5.0, 1);
+        let a2: Tuple = Tuples::new(-2.0, 3.0, 1.0, 0);
+
+        let a3 = a1 + a2;
+
+        assert_eq!(a3.x(), 1.0);
+        assert_eq!(a3.y(), 1.0);
+        assert_eq!(a3.z(), 6.0);
+        assert_eq!(a3.w(), 1);
     }
 
 }
