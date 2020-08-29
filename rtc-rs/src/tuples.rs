@@ -1,4 +1,4 @@
-use std::ops::{Add};
+use std::ops::{Add, Sub};
 
 struct Tuple(f32, f32, f32, u8);
 
@@ -62,6 +62,14 @@ impl Add for Tuple {
     }
 }
 
+impl Sub for Tuple {
+    type Output = Tuple;
+
+    fn sub(self, rhs: Self) -> Self::Output {
+        Tuples::new(self.x() - rhs.x(), self.y() - rhs.y(), self.z() - rhs.z(), self.w() - rhs.w())
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use crate::tuples::{Tuple, Tuples};
@@ -119,6 +127,32 @@ mod tests {
         assert_eq!(a3.y(), 1.0);
         assert_eq!(a3.z(), 6.0);
         assert_eq!(a3.w(), 1);
+    }
+
+    #[test]
+    fn subtracting_two_points() {
+        let p1: Tuple = Tuples::point(3.0, 2.0, 1.0);
+        let p2: Tuple = Tuples::point(5.0, 6.0, 7.0);
+
+        let vector = p1 - p2;
+
+        assert_eq!(vector.x(), -2.0);
+        assert_eq!(vector.y(), -4.0);
+        assert_eq!(vector.z(), -6.0);
+        assert_eq!(vector.w(), 0);
+    }
+
+    #[test]
+    fn subtracting_vector_from_points() {
+        let p1: Tuple = Tuples::point(3.0, 2.0, 1.0);
+        let v1: Tuple = Tuples::vector(5.0, 6.0, 7.0);
+
+        let point = p1 - v1;
+
+        assert_eq!(point.x(), -2.0);
+        assert_eq!(point.y(), -4.0);
+        assert_eq!(point.z(), -6.0);
+        assert_eq!(point.w(), 1);
     }
 
 }
