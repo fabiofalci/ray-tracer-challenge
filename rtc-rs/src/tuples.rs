@@ -155,4 +155,17 @@ mod tests {
         assert_eq!(point.w(), 1);
     }
 
+    #[test]
+    fn subtracting_two_vectors() {
+        let v1: Tuple = Tuples::vector(3.0, 2.0, 1.0);
+        let v2: Tuple = Tuples::vector(5.0, 6.0, 7.0);
+
+        let vector = v1 - v2;
+
+        assert_eq!(vector.x(), -2.0);
+        assert_eq!(vector.y(), -4.0);
+        assert_eq!(vector.z(), -6.0);
+        assert_eq!(vector.w(), 0);
+    }
+
 }
