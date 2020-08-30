@@ -1,23 +1,23 @@
-use std::ops::{Add, Sub};
+use std::ops::{Add, Sub, Neg};
 
-struct Tuple(f32, f32, f32, u8);
+struct Tuple(f32, f32, f32, i8);
 
 trait Tuples {
-    fn new(x: f32, y: f32, z: f32, w: u8) -> Self;
+    fn new(x: f32, y: f32, z: f32, w: i8) -> Self;
     fn point(x: f32, y: f32, z: f32) -> Self;
     fn vector(x: f32, y: f32, z: f32) -> Self;
 
     fn x(&self) -> f32;
     fn y(&self) -> f32;
     fn z(&self) -> f32;
-    fn w(&self) -> u8;
+    fn w(&self) -> i8;
 
     fn is_point(&self) -> bool;
     fn is_vector(&self) -> bool;
 }
 
 impl Tuples for Tuple {
-    fn new(x: f32, y: f32, z: f32, w: u8) -> Tuple {
+    fn new(x: f32, y: f32, z: f32, w: i8) -> Tuple {
         Tuple(x, y, z, w)
     }
 
@@ -41,7 +41,7 @@ impl Tuples for Tuple {
         self.2
     }
 
-    fn w(&self) -> u8 {
+    fn w(&self) -> i8 {
         self.3
     }
 
@@ -67,6 +67,14 @@ impl Sub for Tuple {
 
     fn sub(self, rhs: Self) -> Self::Output {
         Tuples::new(self.x() - rhs.x(), self.y() - rhs.y(), self.z() - rhs.z(), self.w() - rhs.w())
+    }
+}
+
+impl Neg for Tuple {
+    type Output = Tuple;
+
+    fn neg(self) -> Self::Output {
+        Tuples::new(-self.x(), -self.y(), -self.z(), -self.w())
     }
 }
 
@@ -166,6 +174,31 @@ mod tests {
         assert_eq!(vector.y(), -4.0);
         assert_eq!(vector.z(), -6.0);
         assert_eq!(vector.w(), 0);
+    }
+
+    #[test]
+    fn subtracting_vector_from_vector_zero() {
+        let zero: Tuple = Tuples::vector(0.0, 0.0, 0.0);
+        let vector: Tuple = Tuples::vector(1.0, -2.0, 3.0);
+
+        let result = zero - vector;
+
+        assert_eq!(result.x(), -1.0);
+        assert_eq!(result.y(), 2.0);
+        assert_eq!(result.z(), -3.0);
+        assert_eq!(result.w(), 0);
+    }
+
+    #[test]
+    fn negating_a_tuple() {
+        let tuple: Tuple = Tuples::new(1.0, -2.0, 3.0, -4);
+
+        let result = -tuple;
+
+        assert_eq!(result.x(), -1.0);
+        assert_eq!(result.y(), 2.0);
+        assert_eq!(result.z(), -3.0);
+        assert_eq!(result.w(), 4);
     }
 
 }
