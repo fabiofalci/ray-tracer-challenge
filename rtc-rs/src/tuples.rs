@@ -1,32 +1,32 @@
-use std::ops::{Add, Sub, Neg};
+use std::ops::{Add, Sub, Neg, Mul};
 
-struct Tuple(f32, f32, f32, i8);
+struct Tuple(f32, f32, f32, f32);
 
 trait Tuples {
-    fn new(x: f32, y: f32, z: f32, w: i8) -> Self;
+    fn new(x: f32, y: f32, z: f32, w: f32) -> Self;
     fn point(x: f32, y: f32, z: f32) -> Self;
     fn vector(x: f32, y: f32, z: f32) -> Self;
 
     fn x(&self) -> f32;
     fn y(&self) -> f32;
     fn z(&self) -> f32;
-    fn w(&self) -> i8;
+    fn w(&self) -> f32;
 
     fn is_point(&self) -> bool;
     fn is_vector(&self) -> bool;
 }
 
 impl Tuples for Tuple {
-    fn new(x: f32, y: f32, z: f32, w: i8) -> Tuple {
+    fn new(x: f32, y: f32, z: f32, w: f32) -> Tuple {
         Tuple(x, y, z, w)
     }
 
     fn point(x: f32, y: f32, z: f32) -> Tuple {
-        Tuple(x, y, z, 1)
+        Tuple(x, y, z, 1.0)
     }
 
     fn vector(x: f32, y: f32, z: f32) -> Tuple {
-        Tuple(x, y, z, 0)
+        Tuple(x, y, z, 0.0)
     }
 
     fn x(&self) -> f32 {
@@ -41,16 +41,16 @@ impl Tuples for Tuple {
         self.2
     }
 
-    fn w(&self) -> i8 {
+    fn w(&self) -> f32 {
         self.3
     }
 
     fn is_point(&self) -> bool {
-        self.w() == 1
+        self.w() == 1.0
     }
 
     fn is_vector(&self) -> bool {
-        self.w() == 0
+        self.w() == 0.0
     }
 }
 
@@ -78,30 +78,38 @@ impl Neg for Tuple {
     }
 }
 
+impl Mul<f32> for Tuple {
+    type Output = Tuple;
+
+    fn mul(self, rhs: f32) -> Self::Output {
+        Tuples::new(self.x() * rhs, self.y() * rhs, self.z() * rhs, self.w() * rhs)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use crate::tuples::{Tuple, Tuples};
 
     #[test]
     fn tuple_with_1_is_a_point() {
-        let tuple: Tuple = Tuples::new(4.3, -4.2, 3.1, 1);
+        let tuple: Tuple = Tuples::new(4.3, -4.2, 3.1, 1.0);
 
         assert_eq!(tuple.x(), 4.3);
         assert_eq!(tuple.y(), -4.2);
         assert_eq!(tuple.z(), 3.1);
-        assert_eq!(tuple.w(), 1);
+        assert_eq!(tuple.w(), 1.0);
         assert_eq!(tuple.is_point(), true);
         assert_eq!(tuple.is_vector(), false);
     }
 
     #[test]
     fn tuple_with_0_is_a_vector() {
-        let tuple: Tuple = Tuples::new(4.3, -4.2, 3.1, 0);
+        let tuple: Tuple = Tuples::new(4.3, -4.2, 3.1, 0.0);
 
         assert_eq!(tuple.x(), 4.3);
         assert_eq!(tuple.y(), -4.2);
         assert_eq!(tuple.z(), 3.1);
-        assert_eq!(tuple.w(), 0);
+        assert_eq!(tuple.w(), 0.0);
         assert_eq!(tuple.is_point(), false);
         assert_eq!(tuple.is_vector(), true);
     }
@@ -110,7 +118,7 @@ mod tests {
     fn create_point() {
         let tuple: Tuple = Tuples::point(4.3, -4.2, 3.1);
 
-        assert_eq!(tuple.w(), 1);
+        assert_eq!(tuple.w(), 1.0);
         assert_eq!(tuple.is_point(), true);
         assert_eq!(tuple.is_vector(), false);
     }
@@ -119,22 +127,22 @@ mod tests {
     fn create_vector() {
         let tuple: Tuple = Tuples::vector(4.3, -4.2, 3.1);
 
-        assert_eq!(tuple.w(), 0);
+        assert_eq!(tuple.w(), 0.0);
         assert_eq!(tuple.is_point(), false);
         assert_eq!(tuple.is_vector(), true);
     }
 
     #[test]
     fn adding_two_tuples() {
-        let a1: Tuple = Tuples::new(3.0, -2.0, 5.0, 1);
-        let a2: Tuple = Tuples::new(-2.0, 3.0, 1.0, 0);
+        let a1: Tuple = Tuples::new(3.0, -2.0, 5.0, 1.0);
+        let a2: Tuple = Tuples::new(-2.0, 3.0, 1.0, 0.0);
 
         let a3 = a1 + a2;
 
         assert_eq!(a3.x(), 1.0);
         assert_eq!(a3.y(), 1.0);
         assert_eq!(a3.z(), 6.0);
-        assert_eq!(a3.w(), 1);
+        assert_eq!(a3.w(), 1.0);
     }
 
     #[test]
@@ -147,7 +155,7 @@ mod tests {
         assert_eq!(vector.x(), -2.0);
         assert_eq!(vector.y(), -4.0);
         assert_eq!(vector.z(), -6.0);
-        assert_eq!(vector.w(), 0);
+        assert_eq!(vector.w(), 0.0);
     }
 
     #[test]
@@ -160,7 +168,7 @@ mod tests {
         assert_eq!(point.x(), -2.0);
         assert_eq!(point.y(), -4.0);
         assert_eq!(point.z(), -6.0);
-        assert_eq!(point.w(), 1);
+        assert_eq!(point.w(), 1.0);
     }
 
     #[test]
@@ -173,7 +181,7 @@ mod tests {
         assert_eq!(vector.x(), -2.0);
         assert_eq!(vector.y(), -4.0);
         assert_eq!(vector.z(), -6.0);
-        assert_eq!(vector.w(), 0);
+        assert_eq!(vector.w(), 0.0);
     }
 
     #[test]
@@ -186,19 +194,43 @@ mod tests {
         assert_eq!(result.x(), -1.0);
         assert_eq!(result.y(), 2.0);
         assert_eq!(result.z(), -3.0);
-        assert_eq!(result.w(), 0);
+        assert_eq!(result.w(), 0.0);
     }
 
     #[test]
     fn negating_a_tuple() {
-        let tuple: Tuple = Tuples::new(1.0, -2.0, 3.0, -4);
+        let tuple: Tuple = Tuples::new(1.0, -2.0, 3.0, -4.0);
 
         let result = -tuple;
 
         assert_eq!(result.x(), -1.0);
         assert_eq!(result.y(), 2.0);
         assert_eq!(result.z(), -3.0);
-        assert_eq!(result.w(), 4);
+        assert_eq!(result.w(), 4.0);
+    }
+
+    #[test]
+    fn multiply_tuple_by_scalar() {
+        let tuple: Tuple = Tuples::new(1.0, -2.0, 3.0, -4.0);
+
+        let result = tuple * 3.5;
+
+        assert_eq!(result.x(), 3.5);
+        assert_eq!(result.y(), -7.0);
+        assert_eq!(result.z(), 10.5);
+        assert_eq!(result.w(), -14.0);
+    }
+
+    #[test]
+    fn multiply_tuple_by_fraction() {
+        let tuple: Tuple = Tuples::new(1.0, -2.0, 3.0, -4.0);
+
+        let result = tuple * 0.5;
+
+        assert_eq!(result.x(), 0.5);
+        assert_eq!(result.y(), -1.0);
+        assert_eq!(result.z(), 1.5);
+        assert_eq!(result.w(), -2.0);
     }
 
 }
