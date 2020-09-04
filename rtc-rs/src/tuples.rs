@@ -1,4 +1,4 @@
-use std::ops::{Add, Sub, Neg, Mul};
+use std::ops::{Add, Sub, Neg, Mul, Div};
 
 struct Tuple(f32, f32, f32, f32);
 
@@ -83,6 +83,14 @@ impl Mul<f32> for Tuple {
 
     fn mul(self, rhs: f32) -> Self::Output {
         Tuples::new(self.x() * rhs, self.y() * rhs, self.z() * rhs, self.w() * rhs)
+    }
+}
+
+impl Div<f32> for Tuple {
+    type Output = Tuple;
+
+    fn div(self, rhs: f32) -> Self::Output {
+        Tuples::new(self.x() / rhs, self.y() / rhs, self.z() / rhs, self.w() / rhs)
     }
 }
 
@@ -226,6 +234,18 @@ mod tests {
         let tuple: Tuple = Tuples::new(1.0, -2.0, 3.0, -4.0);
 
         let result = tuple * 0.5;
+
+        assert_eq!(result.x(), 0.5);
+        assert_eq!(result.y(), -1.0);
+        assert_eq!(result.z(), 1.5);
+        assert_eq!(result.w(), -2.0);
+    }
+
+    #[test]
+    fn diving_tuple_by_scalar() {
+        let tuple: Tuple = Tuples::new(1.0, -2.0, 3.0, -4.0);
+
+        let result = tuple / 2.0;
 
         assert_eq!(result.x(), 0.5);
         assert_eq!(result.y(), -1.0);
