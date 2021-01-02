@@ -53,8 +53,16 @@ impl Tuple {
         )
     }
 
-    fn dot(v1: Tuple, v2: Tuple) -> f32 {
+    fn dot(v1: &Tuple, v2: &Tuple) -> f32 {
         return v1.x() * v2.x() + v1.y() * v2.y() + v1.z() * v2.z() + v1.w() * v2.w();
+    }
+
+    fn cross(v1: &Tuple, v2: &Tuple) -> Tuple {
+        return Tuple::vector(
+            v1.y() * v2.z() - v1.z() * v2.y(),
+            v1.z() * v2.x() - v1.x() * v2.z(),
+            v1.x() * v2.y() - v1.y() * v2.x()
+        );
     }
 
 }
@@ -283,7 +291,16 @@ mod tests {
         let v1 = Tuple::vector(1.0, 2.0, 3.0);
         let v2 = Tuple::vector(2.0, 3.0, 4.0);
 
-        assert_eq!(Tuple::dot(v1, v2), 20.0);
+        assert_eq!(Tuple::dot(&v1, &v2), 20.0);
+    }
+
+    #[test]
+    fn cross_product_of_two_vectors() {
+        let v1 = Tuple::vector(1.0, 2.0, 3.0);
+        let v2 = Tuple::vector(2.0, 3.0, 4.0);
+
+        assert_eq!(Tuple::cross(&v1, &v2), Tuple::vector(-1.0, 2.0, -1.0));
+        assert_eq!(Tuple::cross(&v2, &v1), Tuple::vector(1.0, -2.0, 1.0));
     }
 
 }
