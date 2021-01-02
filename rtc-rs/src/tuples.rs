@@ -1,5 +1,6 @@
 use std::ops::{Add, Sub, Neg, Mul, Div};
 
+#[derive(PartialEq, PartialOrd, Debug)]
 struct Tuple(f32, f32, f32, f32);
 
 #[allow(dead_code)]
@@ -42,6 +43,14 @@ impl Tuple {
 
     fn magnitude(&self) -> f32 {
         (self.x().powi(2) + self.y().powi(2) + self.z().powi(2) + self.w().powi(2)).sqrt()
+    }
+
+    fn normalize(&self) -> Tuple {
+        Tuple::vector(
+            self.x() / self.magnitude(),
+            self.y() / self.magnitude(),
+            self.z() / self.magnitude(),
+        )
     }
 }
 
@@ -251,6 +260,17 @@ mod tests {
         assert_eq!(Tuple::vector(0.0, 0.0, 1.0).magnitude(), 1.0);
         assert_eq!(Tuple::vector(1.0, 2.0, 3.0).magnitude(), 14.0_f32.sqrt());
         assert_eq!(Tuple::vector(-1.0, -2.0, -3.0).magnitude(), 14.0_f32.sqrt());
+    }
+
+    #[test]
+    fn normalizing_vectors() {
+        assert_eq!(Tuple::vector(4.0, 0.0, 0.0).normalize(), Tuple::vector(1.0, 0.0, 0.0));
+        assert_eq!(Tuple::vector(1.0, 2.0, 3.0).normalize(), Tuple::vector(1.0 / 14.0_f32.sqrt(), 2.0 / 14.0_f32.sqrt(), 3.0 / 14.0_f32.sqrt()));
+    }
+
+    #[test]
+    fn magnitude_of_a_normalized_vectors() {
+        assert_eq!(Tuple::vector(4.0, 0.0, 0.0).normalize().magnitude(), 1.0);
     }
 
 }
