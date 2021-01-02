@@ -52,6 +52,11 @@ impl Tuple {
             self.z() / self.magnitude(),
         )
     }
+
+    fn dot(v1: Tuple, v2: Tuple) -> f32 {
+        return v1.x() * v2.x() + v1.y() * v2.y() + v1.z() * v2.z() + v1.w() * v2.w();
+    }
+
 }
 
 impl Add for Tuple {
@@ -271,6 +276,14 @@ mod tests {
     #[test]
     fn magnitude_of_a_normalized_vectors() {
         assert_eq!(Tuple::vector(4.0, 0.0, 0.0).normalize().magnitude(), 1.0);
+    }
+
+    #[test]
+    fn dot_product_of_two_tuples() {
+        let v1 = Tuple::vector(1.0, 2.0, 3.0);
+        let v2 = Tuple::vector(2.0, 3.0, 4.0);
+
+        assert_eq!(Tuple::dot(v1, v2), 20.0);
     }
 
 }
