@@ -1,7 +1,7 @@
 use std::ops::{Add, Sub, Neg, Mul, Div};
 
 #[derive(PartialEq, PartialOrd, Debug)]
-struct Tuple(f32, f32, f32, f32);
+pub struct Tuple(f32, f32, f32, f32);
 
 #[allow(dead_code)]
 impl Tuple {
