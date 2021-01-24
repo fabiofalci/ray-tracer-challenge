@@ -45,9 +45,7 @@ internal class Chapter05Test {
 //        shape.transform = Matrices.multiply(Transformations.shearing(1.0, 0.0, 0.0, 0.0, 0.0, 0.0), Transformations.scaling(0.5, 1.0, 1.0))
 
 //        val colors = listOf(Colors.RED, Colors.GREEN, Colors.BLUE)
-        val colors = listOf(Colors.BLUE, Colors.WHITE, Colors.BLACK, Colors.WHITE)
-        var index = 0
-        val backgroundColors = listOf(Colors.WHITE, Colors.RED, Colors.GREEN, Colors.BLACK)
+        val colors = listOf(Colors.WHITE, Colors.RED, Colors.GREEN, Colors.BLACK)
 
         for (y in 0 until canvasPixels) {
             val worldY = half - pixelSize * y
@@ -60,12 +58,13 @@ internal class Chapter05Test {
 
                 val hit = intersections.hit();
                 if (hit != null) {
-                    canvas.writePixel(x, y, colors[index++])
-                    if (index == colors.size) {
-                        index = 0;
+                    var colorIndex = getBackgroundColor(worldX, worldY) + 1
+                    if (colorIndex == colors.size) {
+                        colorIndex = 0;
                     }
+                    canvas.writePixel(x, y, colors[colorIndex])
                 } else {
-                    canvas.writePixel(x, y, getBackgroundColor(worldX, worldY, backgroundColors))
+                    canvas.writePixel(x, y, colors[getBackgroundColor(worldX, worldY)])
                 }
                 println("y=$y x=$x = point $position = intersections $intersections = hit $hit")
             }
@@ -73,18 +72,18 @@ internal class Chapter05Test {
         File("/tmp/canvas.ppm").writeText(canvas.toPPM())
     }
 
-    private fun getBackgroundColor(worldX: Double, worldY: Double, backgroundColors: List<Tuple>): Tuple {
+    private fun getBackgroundColor(worldX: Double, worldY: Double): Int {
         return if (worldX < 0.0) {
             if (worldY > 0.0) {
-                backgroundColors[0]
+                0
             } else {
-                backgroundColors[2]
+                2
             }
         } else {
             if (worldY > 0.0) {
-                backgroundColors[1]
+                1
             } else {
-                backgroundColors[3]
+                3
             }
         }
     }
