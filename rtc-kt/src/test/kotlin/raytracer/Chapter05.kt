@@ -2,7 +2,6 @@ package raytracer
 
 import org.junit.jupiter.api.Test
 import java.io.File
-import java.lang.Math.PI
 
 internal class Chapter05Test {
 
@@ -33,16 +32,21 @@ internal class Chapter05Test {
     fun `Cast rays at a sphere book suggestion`() {
         val rayOrigin = Tuple.point(0.0, 0.0, -5.0)
         val wallZ = 10.0
-        val wallSize = 8.0
-        val canvasPixels = 200
+        val wallSize = 7.0
+        val canvasPixels = 100
         val pixelSize = wallSize / canvasPixels
         val half = wallSize / 2
+        println("Pixel size is $pixelSize, half is $half")
 
         val canvas = Canvas(canvasPixels, canvasPixels)
         val shape = Sphere()
 //        shape.transform = Transformations.scaling(1.0, 0.5, 1.0)
 //        shape.transform = Matrices.multiply(Transformations.rotationZ(PI / 4), Transformations.scaling(0.5, 1.0, 1.0))
-        shape.transform = Matrices.multiply(Transformations.shearing(1.0, 0.0, 0.0, 0.0, 0.0, 0.0), Transformations.scaling(0.5, 1.0, 1.0))
+//        shape.transform = Matrices.multiply(Transformations.shearing(1.0, 0.0, 0.0, 0.0, 0.0, 0.0), Transformations.scaling(0.5, 1.0, 1.0))
+
+//        val colors = listOf(Colors.RED, Colors.GREEN, Colors.BLUE)
+        val colors = listOf(Colors.BLUE, Colors.WHITE, Colors.BLACK, Colors.WHITE)
+        var index = 0
 
         for (y in 0 until canvasPixels) {
             val worldY = half - pixelSize * y
@@ -53,9 +57,14 @@ internal class Chapter05Test {
                 val ray = Ray(rayOrigin, (position - rayOrigin).normalize())
                 val intersections = shape.intersect(ray)
 
-                if (intersections.hit() != null) {
-                    canvas.writePixel(x, y, Colors.RED)
+                val hit = intersections.hit();
+                if (hit != null) {
+                    canvas.writePixel(x, y, colors[index++])
+                    if (index == colors.size) {
+                        index = 0;
+                    }
                 }
+                println("y=$y x=$x = point $position = intersections $intersections = hit $hit")
             }
         }
         File("/tmp/canvas.ppm").writeText(canvas.toPPM())
