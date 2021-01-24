@@ -47,6 +47,7 @@ internal class Chapter05Test {
 //        val colors = listOf(Colors.RED, Colors.GREEN, Colors.BLUE)
         val colors = listOf(Colors.BLUE, Colors.WHITE, Colors.BLACK, Colors.WHITE)
         var index = 0
+        val backgroundColors = listOf(Colors.WHITE, Colors.RED, Colors.GREEN, Colors.BLACK)
 
         for (y in 0 until canvasPixels) {
             val worldY = half - pixelSize * y
@@ -63,10 +64,28 @@ internal class Chapter05Test {
                     if (index == colors.size) {
                         index = 0;
                     }
+                } else {
+                    canvas.writePixel(x, y, getBackgroundColor(worldX, worldY, backgroundColors))
                 }
                 println("y=$y x=$x = point $position = intersections $intersections = hit $hit")
             }
         }
         File("/tmp/canvas.ppm").writeText(canvas.toPPM())
+    }
+
+    private fun getBackgroundColor(worldX: Double, worldY: Double, backgroundColors: List<Tuple>): Tuple {
+        return if (worldX < 0.0) {
+            if (worldY > 0.0) {
+                backgroundColors[0]
+            } else {
+                backgroundColors[2]
+            }
+        } else {
+            if (worldY > 0.0) {
+                backgroundColors[1]
+            } else {
+                backgroundColors[3]
+            }
+        }
     }
 }
