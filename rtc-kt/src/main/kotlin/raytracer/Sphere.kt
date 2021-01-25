@@ -27,4 +27,12 @@ class Sphere {
         )
     }
 
+    fun normalAt(worldPoint: Tuple): Tuple {
+        val objectPoint = Matrices.multiply(Matrices.inverse(transform), worldPoint)
+        val objectNormal = objectPoint - Tuple.point(0.0, 0.0, 0.0)
+        val worldNormal = Matrices.multiply(Matrices.transpose(Matrices.inverse(transform)), objectNormal)
+        worldNormal.w = 0
+        return worldNormal.normalize()
+    }
+
 }

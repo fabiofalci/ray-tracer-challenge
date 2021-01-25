@@ -2,6 +2,8 @@ package raytracer
 
 import io.kotlintest.shouldBe
 import org.junit.jupiter.api.Test
+import kotlin.math.PI
+import kotlin.math.sqrt
 
 internal class SphereTest {
 
@@ -122,4 +124,77 @@ internal class SphereTest {
         val intersections = sphere.intersect(ray)
         intersections.size shouldBe 0
     }
+
+    @Test
+    fun `The normal on a sphere at a point on the x axis`() {
+        val sphere = Sphere()
+        val point = Tuple.point(1.0, 0.0, 0.0)
+
+        val vector = sphere.normalAt(point)
+
+        vector shouldBe Tuple.vector(1.0, 0.0, 0.0)
+    }
+
+    @Test
+    fun `The normal on a sphere at a point on the y axis`() {
+        val sphere = Sphere()
+        val point = Tuple.point(0.0, 1.0, 0.0)
+
+        val vector = sphere.normalAt(point)
+
+        vector shouldBe Tuple.vector(0.0, 1.0, 0.0)
+    }
+
+    @Test
+    fun `The normal on a sphere at a point on the z axis`() {
+        val sphere = Sphere()
+        val point = Tuple.point(0.0, 0.0, 1.0)
+
+        val vector = sphere.normalAt(point)
+
+        vector shouldBe Tuple.vector(0.0, 0.0, 1.0)
+    }
+
+    @Test
+    fun `The normal on a sphere at a nonaxial point`() {
+        val sphere = Sphere()
+        val point = Tuple.point(sqrt(3.0) / 3.0, sqrt(3.0) / 3.0, sqrt(3.0) / 3.0)
+
+        val vector = sphere.normalAt(point)
+
+        vector shouldBe Tuple.vector(sqrt(3.0) / 3.0, sqrt(3.0) / 3.0, sqrt(3.0) / 3.0)
+    }
+
+    @Test
+    fun `The normal is a normalized vector`() {
+        val sphere = Sphere()
+        val point = Tuple.point(sqrt(3.0) / 3.0, sqrt(3.0) / 3.0, sqrt(3.0) / 3.0)
+
+        val vector = sphere.normalAt(point)
+
+        vector shouldBe vector.normalize()
+    }
+
+    @Test
+    fun `Computing the normal on a translated sphere`() {
+        val sphere = Sphere()
+        sphere.transform = Transformations.translation(0.0, 1.0, 0.0)
+        val point = Tuple.point(0.0, 1.70711, -0.70711)
+
+        val vector = sphere.normalAt(point)
+
+        vector shouldBe Tuple.vector(0.0, 0.7071067811865475, -0.7071067811865476)
+    }
+
+    @Test
+    fun `Computing the normal on a transformed sphere`() {
+        val sphere = Sphere()
+        sphere.transform = Matrices.multiply(Transformations.scaling(1.0, 0.5, 1.0), Transformations.rotationZ(PI / 5))
+        val point = Tuple.point(0.0, sqrt(2.0) / 2.0, -sqrt(2.0) / 2.0)
+
+        val vector = sphere.normalAt(point)
+
+        vector shouldBe Tuple.vector(0.0, 0.9701425001453319, -0.24253562503633294)
+    }
+
 }

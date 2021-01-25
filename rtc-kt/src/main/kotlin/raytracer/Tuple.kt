@@ -7,7 +7,7 @@ class Tuple(
         val x: Double,
         val y: Double,
         val z: Double,
-        val w: Int
+        var w: Int
 ) {
 
     companion object {
@@ -96,5 +96,9 @@ class Tuple(
                 z * tuple.x - x * tuple.z,
                 x * tuple.y - y * tuple.x
         )
+    }
+
+    fun reflect(normal: Tuple): Tuple {
+        return this - normal * 2.0 * this.dot(normal)
     }
 }

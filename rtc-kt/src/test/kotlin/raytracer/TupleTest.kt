@@ -5,6 +5,7 @@ import io.kotlintest.shouldBe
 import io.kotlintest.shouldNotBe
 import io.kotlintest.shouldThrow
 import org.junit.jupiter.api.Test
+import kotlin.math.sqrt
 
 internal class TupleTest {
 
@@ -154,6 +155,26 @@ internal class TupleTest {
     @Test
     fun `Multiplying colors`() {
         Tuple.color(1.0, 0.2, 0.4) * Tuple.color(0.9, 1.0, 0.1) shouldBe Tuple.color(0.9, 0.2, 0.04000000000000001)
+    }
+
+    @Test
+    fun `Reflecting a vector approaching at 45`() {
+        val vector = Tuple.vector(1.0, -1.0, 0.0)
+        val normal = Tuple.vector(0.0, 1.0, 0.0)
+
+        val reflectedVector = vector.reflect(normal)
+
+        reflectedVector shouldBe Tuple.vector(1.0, 1.0, 0.0)
+    }
+
+    @Test
+    fun `Reflecting a vector off a slanted surface`() {
+        val vector = Tuple.vector(0.0, -1.0, 0.0)
+        val normal = Tuple.vector(sqrt(2.0) / 2, sqrt(2.0) / 2, 0.0)
+
+        val reflectedVector = vector.reflect(normal)
+
+        reflectedVector shouldBe Tuple.vector(1.0, 0.0, 0.0)
     }
 
 }
