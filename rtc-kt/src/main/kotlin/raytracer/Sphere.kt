@@ -3,7 +3,7 @@ package raytracer
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-class Sphere {
+class Sphere(var material: Material = Material()) {
 
     var transform = Matrices.IDENTITY
 

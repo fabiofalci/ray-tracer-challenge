@@ -197,4 +197,21 @@ internal class SphereTest {
         vector shouldBe Tuple.vector(0.0, 0.9701425001453319, -0.24253562503633294)
     }
 
+    @Test
+    fun `A sphere has a default material`() {
+        val sphere = Sphere()
+
+        sphere.material shouldBe Material()
+    }
+
+    @Test
+    fun `A sphere may be assigned a material`() {
+        val sphere = Sphere()
+        val material = Material()
+        material.ambient = 1.0
+        sphere.material = material
+
+        sphere.material shouldBe material
+    }
+
 }
