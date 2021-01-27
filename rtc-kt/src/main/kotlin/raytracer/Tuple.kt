@@ -60,10 +60,13 @@ class Tuple(
     }
 
     operator fun times(d: Double): Tuple {
+        if (isColor()) {
+            return Tuple(x * d, y * d, z * d, w)
+        }
         return Tuple(x * d, y * d, z * d, (w * d).toInt())
     }
 
-    operator fun times(tuple: Tuple): Any {
+    operator fun times(tuple: Tuple): Tuple {
         if (!isColor()) throw RuntimeException("Cannot multiply non color tuples")
         return Tuple(x * tuple.x, y * tuple.y, z * tuple.z, w)
     }
